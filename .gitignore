@@ -1,0 +1,7 @@
+**/[Pp]ackages/*
+**/Test/obj/*
+**/Test/bin/*
+**/Model/bin/*
+**/Model/obj/*
+.vs/
+*.config

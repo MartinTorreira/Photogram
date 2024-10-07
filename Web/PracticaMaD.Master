@@ -1,0 +1,106 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PracticaMaD.Master.cs" Inherits="Es.Udc.DotNet.PracticaMaD.Web.PracticaMaD" %>
+
+<!DOCTYPE html>
+<html>
+<head id="Head1" runat="server">
+    <title>Photogram</title>
+    <link href="~/Css/Styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <!-- Window. -->
+    <div id="window">
+        <!-- Page title. -->
+        <div id="pageTitle">
+            <asp:Localize ID="lclPageTitle" runat="server" meta:resourcekey="lclPageTitle" />
+        </div>
+        <!-- Menu. -->
+        <div id="menu">
+            <span id="menuWelcome">
+
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuWelcome" runat="server">
+                    <asp:Label ID="lblWelcome" runat="server" meta:resourcekey="lblWelcome" />
+                </asp:ContentPlaceHolder>
+            </span>
+
+            <span id="menuExplanation">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuExplanation" runat="server">
+                </asp:ContentPlaceHolder>
+            </span>
+
+            <div id="menuLinks">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuLinks" runat="server">
+                        <a>
+                            <asp:HyperLink ID="lnkMainPage" runat="server" NavigateUrl="~/Pages/MainPage.aspx"
+                             meta:resourcekey="lnkMainPage"></asp:HyperLink>
+                        </a>
+                        <a>
+                            <asp:HyperLink ID="lnkAuthentication" runat="server" NavigateUrl="~/Pages/Authentication.aspx" 
+                             meta:resourcekey="lnkAuthentication"></asp:HyperLink>
+                        </a>
+                         <a>
+                            <asp:HyperLink ID="lnkRegister" runat="server" NavigateUrl="~/Pages/Register.aspx" 
+                             meta:resourcekey="lnkRegister"></asp:HyperLink>
+                        </a>
+                        <a>
+                            <asp:HyperLink ID="lnkUpdate" runat="server" NavigateUrl="~/Pages/UpdateProfile.aspx" 
+                             meta:resourcekey="lnkUpdate"></asp:HyperLink>
+                        </a>
+                        <a>
+                            <asp:HyperLink ID="lnkFindUser" runat="server" NavigateUrl="~/Pages/FindUsers.aspx" 
+                             meta:resourcekey="lnkFindUser"></asp:HyperLink>
+                        </a>
+                        <a>
+                            <asp:HyperLink ID="lnkFindImage" runat="server" NavigateUrl="~/Pages/FindImage.aspx" 
+                             meta:resourcekey="lnkFindImage"></asp:HyperLink>
+                        </a>
+                        <a>
+                            <asp:HyperLink ID="lnkLogout" runat="server" NavigateUrl="~/Pages/Logout.aspx" 
+                            meta:resourcekey="lnkLogout"></asp:HyperLink>
+                        </a>
+                        <a>
+                            <asp:HyperLink ID="lnkFollowers" runat="server" NavigateUrl="~/Pages/Followers.aspx" 
+                            meta:resourcekey="lnkFollowers"></asp:HyperLink>
+                        </a>
+                        <a>
+                            <asp:HyperLink ID="lnkUploadImage" runat="server" NavigateUrl="~/Pages/UploadImage.aspx" 
+                             meta:resourcekey="lnkUploadImage"></asp:HyperLink>
+                        </a>
+
+                </asp:ContentPlaceHolder>
+            </div>
+         </div>
+
+            <br />
+            <div style="text-align:center;">
+            <asp:Label ID="lclTag" meta:resourcekey="lclTag" runat="server" Font-Size="Large" Font-Bold="True"></asp:Label>
+            </div>
+            <div style="text-align:center; margin-top:12px">
+             <asp:ContentPlaceHolder ID="ContentPlaceHolder_Footer" runat="server">
+                         <asp:Repeater ID="repeater" runat="server"> 
+                            <ItemTemplate>
+                                  <div style="display: inline-block; margin-right: 10px;">
+                                    <asp:HyperLink NavigateUrl='<%# string.Format("~/Pages/TagImages.aspx?Tag={0}",Eval("title"))%>' ID="lblTag" font-color="#fffff" Font-Size='<%# FontUnit.Point((Convert.ToInt32(Eval("usage")))+10) %>' runat="server" Text='<%# Eval("title") %>' Visible="true" />
+                                     <br />
+                                 </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+             </asp:ContentPlaceHolder>
+            </div>
+
+        </div>
+
+        <!-- Body content. -->
+        <div id="content">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder_BodyContent" runat="server" />
+           
+        </div>
+        <!-- Footer. -->
+        <div id="footer">
+            
+        </div>
+        <!-- End of Window. -->
+    </div>
+    <!-- End of HTML body. -->
+</body>
+<!-- End of HTML. -->
+</html>

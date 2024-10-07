@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c75bb229cf964923847dd7182ba04550" Name="Diagram1">
+        <EntityTypeShape EntityType="Es.UDC.DotNet.Photogram.Category" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.UDC.DotNet.Photogram.Comment" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.UDC.DotNet.Photogram.Image" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.UDC.DotNet.Photogram.Tag" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.UDC.DotNet.Photogram.UserProfile" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="Es.UDC.DotNet.Photogram.FK__Image__categoryI__5BAD9CC8" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.UDC.DotNet.Photogram.FK__Comment__imageId__607251E5" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.UDC.DotNet.Photogram.FK__Comment__userId__5F7E2DAC" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.UDC.DotNet.Photogram.FK__Image__userId__5CA1C101" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.UDC.DotNet.Photogram.Like" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.UDC.DotNet.Photogram.TagImage" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.UDC.DotNet.Photogram.UserProfileUserProfile" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.34031.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{811CE722-0C9F-4D14-8D89-41C7AF6FE1B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{756D1129-453A-42DD-A548-89EBD1971D65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{7430BC27-F5F3-4DD3-BD20-1DC19C95D3A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{A273B3F4-7D9A-4D4B-AA07-4FCD1D4251E0}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\MiniPortal-src-4.2.1\MiniPortal-src-4.2.1\Lib\ModelUtil.dll = ..\..\..\MiniPortal-src-4.2.1\MiniPortal-src-4.2.1\Lib\ModelUtil.dll
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{811CE722-0C9F-4D14-8D89-41C7AF6FE1B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{811CE722-0C9F-4D14-8D89-41C7AF6FE1B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{811CE722-0C9F-4D14-8D89-41C7AF6FE1B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{811CE722-0C9F-4D14-8D89-41C7AF6FE1B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{756D1129-453A-42DD-A548-89EBD1971D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{756D1129-453A-42DD-A548-89EBD1971D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{756D1129-453A-42DD-A548-89EBD1971D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{756D1129-453A-42DD-A548-89EBD1971D65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7430BC27-F5F3-4DD3-BD20-1DC19C95D3A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7430BC27-F5F3-4DD3-BD20-1DC19C95D3A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7430BC27-F5F3-4DD3-BD20-1DC19C95D3A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7430BC27-F5F3-4DD3-BD20-1DC19C95D3A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
+		SolutionGuid = {D47B779E-4E04-4A4A-AFB9-D7B6AB02382B}
+	EndGlobalSection
+EndGlobal

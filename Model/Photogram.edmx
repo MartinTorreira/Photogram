@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Es.UDC.DotNet.Photogram.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryId" />
+          </Key>
+          <Property Name="categoryId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="commentId" />
+          </Key>
+          <Property Name="commentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="content" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="userId" Type="bigint" Nullable="false" />
+          <Property Name="imageId" Type="bigint" Nullable="false" />
+          <Property Name="releaseDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="imageId" />
+          </Key>
+          <Property Name="imageId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="path" Type="varchar" MaxLength="255" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="100" />
+          <Property Name="releaseDate" Type="datetime" Nullable="false" />
+          <Property Name="apertureSize" Type="bigint" />
+          <Property Name="exposureTime" Type="bigint" />
+          <Property Name="whiteBalance" Type="bigint" />
+          <Property Name="categoryId" Type="bigint" />
+          <Property Name="userId" Type="bigint" />
+          <Property Name="filename" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Like">
+          <Key>
+            <PropertyRef Name="Image1_imageId" />
+            <PropertyRef Name="UserProfile1_userId" />
+          </Key>
+          <Property Name="Image1_imageId" Type="bigint" Nullable="false" />
+          <Property Name="UserProfile1_userId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="tagId" />
+          </Key>
+          <Property Name="tagId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TagImage">
+          <Key>
+            <PropertyRef Name="Image_imageId" />
+            <PropertyRef Name="Tag_tagId" />
+          </Key>
+          <Property Name="Image_imageId" Type="bigint" Nullable="false" />
+          <Property Name="Tag_tagId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="loginName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="enPassword" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="language" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="country" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfileUserProfile">
+          <Key>
+            <PropertyRef Name="UserProfile2_userId" />
+            <PropertyRef Name="UserProfile1_userId" />
+          </Key>
+          <Property Name="UserProfile2_userId" Type="bigint" Nullable="false" />
+          <Property Name="UserProfile1_userId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Comment__imageId__607251E5">
+          <End Role="Image" Type="Self.Image" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="imageId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="imageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__userId__5F7E2DAC">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Image__categoryI__5BAD9CC8">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="categoryId" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Image__userId__5CA1C101">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="1" />
+          <End Role="Like" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="imageId" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="Image1_imageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Like" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="UserProfile1_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagImage_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="1" />
+          <End Role="TagImage" Type="Self.TagImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="imageId" />
+            </Principal>
+            <Dependent Role="TagImage">
+              <PropertyRef Name="Image_imageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagImage_Tag">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TagImage" Type="Self.TagImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="tagId" />
+            </Principal>
+            <Dependent Role="TagImage">
+              <PropertyRef Name="Tag_tagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfileUserProfile_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="UserProfileUserProfile" Type="Self.UserProfileUserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="UserProfileUserProfile">
+              <PropertyRef Name="UserProfile2_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfileUserProfile_UserProfile1">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="UserProfileUserProfile" Type="Self.UserProfileUserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="UserProfileUserProfile">
+              <PropertyRef Name="UserProfile1_userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EsUDCDotNetPhotogramStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Like" EntityType="Self.Like" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TagImage" EntityType="Self.TagImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfileUserProfile" EntityType="Self.UserProfileUserProfile" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Comment__imageId__607251E5" Association="Self.FK__Comment__imageId__607251E5">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__userId__5F7E2DAC" Association="Self.FK__Comment__userId__5F7E2DAC">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Image__categoryI__5BAD9CC8" Association="Self.FK__Image__categoryI__5BAD9CC8">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Image" EntitySet="Image" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Image__userId__5CA1C101" Association="Self.FK__Image__userId__5CA1C101">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Image" EntitySet="Image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_Image" Association="Self.FK_Like_Image">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Like" EntitySet="Like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_UserProfile" Association="Self.FK_Like_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Like" EntitySet="Like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagImage_Image" Association="Self.FK_TagImage_Image">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="TagImage" EntitySet="TagImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagImage_Tag" Association="Self.FK_TagImage_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="TagImage" EntitySet="TagImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfileUserProfile_UserProfile" Association="Self.FK_UserProfileUserProfile_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfileUserProfile" EntitySet="UserProfileUserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfileUserProfile_UserProfile1" Association="Self.FK_UserProfileUserProfile_UserProfile1">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfileUserProfile" EntitySet="UserProfileUserProfile" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Es.UDC.DotNet.Photogram" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryId" />
+          </Key>
+          <Property Name="categoryId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Image" Relationship="Self.FK__Image__categoryI__5BAD9CC8" FromRole="Category" ToRole="Image" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="commentId" />
+          </Key>
+          <Property Name="commentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="content" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userId" Type="Int64" Nullable="false" />
+          <Property Name="imageId" Type="Int64" Nullable="false" />
+          <Property Name="releaseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Image" Relationship="Self.FK__Comment__imageId__607251E5" FromRole="Comment" ToRole="Image" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Comment__userId__5F7E2DAC" FromRole="Comment" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="imageId" />
+          </Key>
+          <Property Name="imageId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="releaseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="apertureSize" Type="Int64" />
+          <Property Name="exposureTime" Type="Int64" />
+          <Property Name="whiteBalance" Type="Int64" />
+          <Property Name="categoryId" Type="Int64" />
+          <Property Name="userId" Type="Int64" />
+          <Property Name="filename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Image__categoryI__5BAD9CC8" FromRole="Image" ToRole="Category" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK__Comment__imageId__607251E5" FromRole="Image" ToRole="Comment" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Image__userId__5CA1C101" FromRole="Image" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile1" Relationship="Self.Like" FromRole="Image" ToRole="UserProfile" />
+          <NavigationProperty Name="Tag" Relationship="Self.TagImage" FromRole="Image" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="tagId" />
+          </Key>
+          <Property Name="tagId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Image" Relationship="Self.TagImage" FromRole="Tag" ToRole="Image" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="loginName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="enPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="language" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="country" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK__Comment__userId__5F7E2DAC" FromRole="UserProfile" ToRole="Comment" />
+          <NavigationProperty Name="Image" Relationship="Self.FK__Image__userId__5CA1C101" FromRole="UserProfile" ToRole="Image" />
+          <NavigationProperty Name="Image1" Relationship="Self.Like" FromRole="UserProfile" ToRole="Image" />
+          <NavigationProperty Name="UserProfile1" Relationship="Self.UserProfileUserProfile" FromRole="UserProfile" ToRole="UserProfile1" />
+          <NavigationProperty Name="UserProfile2" Relationship="Self.UserProfileUserProfile" FromRole="UserProfile1" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK__Image__categoryI__5BAD9CC8">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="categoryId" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__imageId__607251E5">
+          <End Role="Image" Type="Self.Image" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="imageId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="imageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__userId__5F7E2DAC">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Image__userId__5CA1C101">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Like">
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+        </Association>
+        <Association Name="TagImage">
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
+        </Association>
+        <Association Name="UserProfileUserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <End Role="UserProfile1" Type="Self.UserProfile" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" />
+          <EntitySet Name="Image" EntityType="Self.Image" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" />
+          <AssociationSet Name="FK__Image__categoryI__5BAD9CC8" Association="Self.FK__Image__categoryI__5BAD9CC8">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Image" EntitySet="Image" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__imageId__607251E5" Association="Self.FK__Comment__imageId__607251E5">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__userId__5F7E2DAC" Association="Self.FK__Comment__userId__5F7E2DAC">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Image__userId__5CA1C101" Association="Self.FK__Image__userId__5CA1C101">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Image" EntitySet="Image" />
+          </AssociationSet>
+          <AssociationSet Name="Like" Association="Self.Like">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="TagImage" Association="Self.TagImage">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Tag" EntitySet="Tag" />
+          </AssociationSet>
+          <AssociationSet Name="UserProfileUserProfile" Association="Self.UserProfileUserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfile1" EntitySet="UserProfile" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EsUDCDotNetPhotogramStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="Es.UDC.DotNet.Photogram.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="Es.UDC.DotNet.Photogram.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="commentId" ColumnName="commentId" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="imageId" ColumnName="imageId" />
+                <ScalarProperty Name="releaseDate" ColumnName="releaseDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Image">
+            <EntityTypeMapping TypeName="Es.UDC.DotNet.Photogram.Image">
+              <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="imageId" ColumnName="imageId" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="releaseDate" ColumnName="releaseDate" />
+                <ScalarProperty Name="apertureSize" ColumnName="apertureSize" />
+                <ScalarProperty Name="exposureTime" ColumnName="exposureTime" />
+                <ScalarProperty Name="whiteBalance" ColumnName="whiteBalance" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tag">
+            <EntityTypeMapping TypeName="Es.UDC.DotNet.Photogram.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="tagId" ColumnName="tagId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfile">
+            <EntityTypeMapping TypeName="Es.UDC.DotNet.Photogram.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="loginName" ColumnName="loginName" />
+                <ScalarProperty Name="enPassword" ColumnName="enPassword" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="language" ColumnName="language" />
+                <ScalarProperty Name="country" ColumnName="country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Like" TypeName="Es.UDC.DotNet.Photogram.Like" StoreEntitySet="Like">
+            <EndProperty Name="Image">
+              <ScalarProperty Name="imageId" ColumnName="Image1_imageId" />
+            </EndProperty>
+            <EndProperty Name="UserProfile">
+              <ScalarProperty Name="userId" ColumnName="UserProfile1_userId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TagImage" TypeName="Es.UDC.DotNet.Photogram.TagImage" StoreEntitySet="TagImage">
+            <EndProperty Name="Image">
+              <ScalarProperty Name="imageId" ColumnName="Image_imageId" />
+            </EndProperty>
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="tagId" ColumnName="Tag_tagId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UserProfileUserProfile" TypeName="Es.UDC.DotNet.Photogram.UserProfileUserProfile" StoreEntitySet="UserProfileUserProfile">
+            <EndProperty Name="UserProfile">
+              <ScalarProperty Name="userId" ColumnName="UserProfile2_userId" />
+            </EndProperty>
+            <EndProperty Name="UserProfile1">
+              <ScalarProperty Name="userId" ColumnName="UserProfile1_userId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
